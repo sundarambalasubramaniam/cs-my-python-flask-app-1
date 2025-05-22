@@ -30,14 +30,15 @@ jobs:
       - name: Deploy infrastructure with Bicep
         uses: azure/arm-deploy@v1
         with:
-          scope: resourcegroup
+          scope: subscription
           template: ./infra/main.bicep
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
           parameters: |
+            resourceGroupName=${{ secrets.AZURE_RESOURCE_GROUP }}
+            location=${{ secrets.AZURE_LOCATION }}
             appServiceName=${{ secrets.AZURE_WEBAPP_NAME }}
             appServicePlanName=${{ secrets.AZURE_WEBAPP_PLAN_NAME }}
-            location=${{ secrets.AZURE_LOCATION }}
+            abbreviations=${{ secrets.ABBREVIATIONS_JSON }}
           deploymentName: flask-app-deployment
 
       - name: Archive code
