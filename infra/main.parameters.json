@@ -10,6 +10,9 @@
     },
     "appServiceName": {
       "value": "my-flask-app-service"
-    }
+    },
+    "appServicePlanName": {
+      "value": "my-flask-app-app-serv-plan1"
+    },
   }
 }
