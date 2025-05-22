@@ -39,6 +39,20 @@ jobs:
                   environmentName=dev
                   location=canadacentral
                   appServicePlanName=my-flask-app-app-serv-plan1
+                  appServicePlanSkuName=F1
+                  resourcegroupLocation=canadacentral
+                deploymentName: my-flask-app-deployment
+            - name: Build and package the application
+              run: |
+                mkdir -p release
+                cp -r . release/
+                cd release
+                # Remove unnecessary files
+                rm -rf .git
+                rm -rf __pycache__
+                rm -rf *.pyc
+
+
 
             - name: Archive code
               run: zip -r release.zip . -x '*.git*'
