@@ -1,4 +1,4 @@
-targetScope = 'subscription'
+targetScope = 'resourceGroup'
 
 // The main bicep module to provision Azure resources.
 // For a more complete walkthrough to understand how this file works with azd,
@@ -53,7 +53,6 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 // The application App
 module web './core/host/appservice.bicep' = {
   name: 'web'
-  scope: rg
   params: {
     name: !empty(appServiceName) ? appServiceName : '${abbrs.webSitesAppService}web-${resourceToken}'
     location: location
@@ -68,7 +67,6 @@ module web './core/host/appservice.bicep' = {
 // Create an App Service Plan to group applications under the same payment plan and SKU
 module appServicePlan './core/host/appserviceplan.bicep' = {
   name: 'appserviceplan'
-  scope: rg
   params: {
     name: !empty(appServicePlanName) ? appServicePlanName : '${abbrs.webServerFarms}${resourceToken}'
     location: location
