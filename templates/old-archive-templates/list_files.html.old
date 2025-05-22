@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+        <title>List Files</title>
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+        <link rel="icon"href="{% static 'favicon.ico' %}">
+</head>
+<body>
+    <h1>List of Files - in Blob Container</h1>
+    <p>Files in LIST format</p>
+    <ul>
+        {% for file in list_file_names %}
+            <li>{{ file }}</li>
+        {% endfor %}
+        <p>Number of Files: {{ list_file_names|length }}</p>
+    </ul>
+    
+
+    <p>Files in TABLE format</p>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>File Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in list_file_names %}
+                <tr>
+                    <td style="border: 1px solid black;">{{ file }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </table>
+    <p>Number of Files: {{ list_file_names|length }}</p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p>File_names as a Array: {{ list_file_names }}</p>
+   
+    <form>
+        {% csrf_token %}
+        <div class="col-md-6 mx-auto text-center">
+            <label for="name" class="form-label fw-bold fs-5">Want to upload file ?</label>
+   
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                <a href="{% url 'upload_file' %}" class="btn btn-secondary btn-lg px-4 gap-3" style="background-color: var(--bs-purple);">Click Here</a>
+            </div>            
+        </div>
+    </form>
+
+    {% csrf_token %}
+    <div class="col-md-6 mx-auto text-center">
+        <label for="name" class="form-label fw-bold fs-5">Want to go to Home page?</label>
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+        <a href="{% url 'index' %}" class="btn btn-secondary btn-lg px-4 gap-3">Back home</a>
+        </div>            
+    </div>
+
+</body>
+</html>

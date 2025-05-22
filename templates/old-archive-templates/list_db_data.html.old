@@ -1,0 +1,46 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+<div class="container mt-3">
+    <h2>Items List</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>user_id</th>
+                <th>first_name</th>
+                <th>last_name</th>
+                <!-- Add more headers as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.user_id}}</td>
+                <td>{{ item.first_name }}</td>
+                <td>{{ item.last_name }}</td>
+                <!-- Add more data cells as needed -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<form>
+    {% csrf_token %}
+    <div class="col-md-6 mx-auto text-center">
+        <label for="name" class="form-label fw-bold fs-5">Want to upload file ?</label>
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+            <a href="{% url 'upload_file' %}" class="btn btn-secondary btn-lg px-4 gap-3" style="background-color: var(--bs-purple);">Click Here</a>
+        </div>            
+    </div>
+</form>
+<form>
+    {% csrf_token %}
+    <div class="col-md-6 mx-auto text-center">
+        <label for="name" class="form-label fw-bold fs-5">Want to go to Home page?</label>
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+        <a href="{% url 'index' %}" class="btn btn-secondary btn-lg px-4 gap-3">Back home</a>
+        </div>            
+    </div>
+</form>

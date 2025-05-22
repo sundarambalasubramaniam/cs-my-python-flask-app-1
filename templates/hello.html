@@ -1,21 +1,48 @@
 <!doctype html>
-<head>
-    <title>Hello Azure - Python Quickstart</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
 <html>
+<head>
+  <title>Hello Azure - Python Quickstart</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
    <body>
-     <main>
-        <div class="px-4 py-3 my-2 text-center">
-            <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/azure-icon.svg') }}" alt="Azure Logo" width="192" height="192"/>
-            <!-- <img  src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-            <h1 class="display-6 fw-bold">Hello {{name}}</h1>
-            <p class="fs-5">
-                It is nice to meet you!
-            </p>
-            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg px-4 gap-3">Back home</a>
-          </div>
-     </main>      
+   <main>
+    <div class="px-4 py-3 my-2 text-center">
+      <img class="d-block mx-auto mb-4 azure-logo" src="{{ url_for('static', filename='images/azure-icon.svg') }}" alt="Azure Logo"/>
+      <h1 class="display-6 fw-bold">Hello {{name|e}}</h1>
+      <p class="fs-5">
+        It is nice to meet you!
+      </p>
+      <p class="lead mb-2">Could you please enter your username and password?</p>
+      {% if warning %}
+      <div class="alert alert-warning" role="alert">
+        {{ warning }}
+      </div>
+      {% endif %}
+      <form method="post" action="{{url_for('appsmenu')}}">
+        <div class="col-md-6 mx-auto text-center">
+          <label for="username" class="form-label fw-bold fs-5">Username</label>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+            <input type="text" class="form-control" id="username" name="username" style="max-width: 256px;" required>
+            </div>
+            <label for="password" class="form-label fw-bold fs-5">Password</label>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
+            <input type="password" class="form-control" id="password" name="password" style="max-width: 256px;" required>
+            </div>
+            {% if error %}
+            <div class="alert alert-danger mt-2" role="alert">
+            {{ error }}
+            </div>
+            {% endif %}
+            </div>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+            <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Login</button>
+        </div>    
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+          <a href="{{ url_for('index') }}" class="btn btn-light btn-lg px-4 gap-3" style="background-color: #a7a9ab; color: #432525; border-color: #ced4da;">Back home</a>
+        </div>
+      </form>
+      </div>
+   </main>      
    </body>
 </html>

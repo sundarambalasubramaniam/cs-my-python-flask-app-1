@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <title>Hello Azure - Python Quickstart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+   <body>
+     <main>
+        <div class="px-4 py-3 my-2 text-center">
+            <img class="d-block mx-auto mb-4 azure-logo" src="{{ url_for('static', filename='images/azure-icon.svg') }}" alt="Azure Logo"/>
+            <h1 class="display-6 fw-bold">Hello {{name|e}}</h1>
+            <p class="fs-5">
+                Thanks for the login!
+                Please select one of the following applications to continue:
+            </p>
+            <form method="post" action="{{url_for('apps1')}}">
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                  <a href="{{ url_for('apps1') }}" class="btn btn-primary btn-lg px-4 gap-3">Apps1</a>
+                </div>    
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                  <a href="{{ url_for('index') }}" class="btn btn-light btn-lg px-4 gap-3" style="background-color: #a7a9ab; color: #432525; border-color: #ced4da;">Back home</a>
+                </div>
+                </div>
+            </form>
+          </div>
+     </main>      
+   </body>
+</html>

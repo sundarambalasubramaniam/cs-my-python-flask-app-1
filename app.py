@@ -34,6 +34,28 @@ def hello():
        print('Request for hello page received with no name or blank name -- redirecting')
        return redirect(url_for('index'))
 
+@app.route('/appsmenu', methods=['GET','POST'])
+def appsmenu():
+   if request.method == 'POST':
+       username = request.form.get('username')
+       password = request.form.get('password')
+
+       if username:
+           print('Request for Appsmenu page received with username=%s' % username)
+           return render_template('appsmenu.html', username = username, password = password)
+       else:
+           print('Request for Appsmenu page received with no username or blank username -- redirecting')
+           return redirect(url_for('index'))
+   else:
+       # Handle GET request
+       return render_template('appsmenu.html')
+   
+
+@app.route('/apps1', methods=['GET','POST'])
+def apps1():
+    print('Request for apps1 page received')
+    return render_template('apps1.html')
+  
 
 if __name__ == '__main__':
    app.run()

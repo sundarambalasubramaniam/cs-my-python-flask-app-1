@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="icon"href="{% static 'favicon.ico' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-6 fw-bold text-primary">Upload File</h1>
+        <p>Click on the "Choose File" button to upload a file:</p>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="myfile">
+            <button type="submit" class="btn btn-primary btn-sm px-4 gap-3" onclick="return validateForm()">Upload</button>    
+            {% if file_not_chosen %}
+                <p class="text-danger">File was not chosen. Please try uploading again.</p>
+                <!-- 
+                <h1>Status:</h1>
+                <p><strong>Status of the file:</strong> {{ file_not_chosen }}</p>
+                -->
+            {% endif %}
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </form>
+    </div>
+    <form>
+        <div class="container">
+        <div class="row">
+            <div class="col">
+                {% if uploaded_file_url %}
+                    <h1>Status:</h1>
+                    <p><strong>Status of the file:</strong> {{ file_status_message }}</p>
+                    <p><strong>File uploaded at:<strong> <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </form>
+    <form>
+        {% csrf_token %}
+        <div class="col-md-6 mx-auto text-center">
+            <label for="name" class="form-label fw-bold fs-5">Want to list files from Blob ?</label>
+   
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                <a href="{% url 'list_files' %}" class="btn btn-secondary btn-lg px-4 gap-3" style="background-color: var(--bs-green);">Click Here</a> 
+            </div>            
+        </div>
+    </form>
+    <form>
+        {% csrf_token %}
+        <div class="col-md-6 mx-auto text-center">
+          <label for="name" class="form-label fw-bold fs-5">Want to list MySql DB Data ?</label>
+       
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+          <a href="{% url 'list_db_data' %}" class="btn btn-secondary btn-lg px-4 gap-3" style="background-color: var(--bs-orange);">Click Here</a> 
+          </div>            
+        </div>
+    </form>
+    <form>
+        {% csrf_token %}
+        <div class="col-md-6 mx-auto text-center">
+            <label for="name" class="form-label fw-bold fs-5">Want to go to Home page?</label>
+   
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+            <a href="{% url 'index' %}" class="btn btn-secondary btn-lg px-4 gap-3">Back home</a>
+            </div>            
+        </div>
+    </form>
+</body>
+</html>

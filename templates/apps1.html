@@ -16,20 +16,19 @@
             <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/azure-icon.svg') }}" alt="Azure Logo" width="192" height="192"/>
             <h1 class="display-6 fw-bold text-primary">Welcome to Azure</h1>            
           </div>
-        <form method="post" action="{{url_for('hello')}}">
             <div class="col-md-6 mx-auto text-center">
-                <label for="name" class="form-label fw-bold fs-5">Could you please tell me your name?</label>
-
-                <!-- <p class="lead mb-2">Could you please tell me your name?</p> -->
+                <label for="name" class="form-label fw-bold fs-5">This app will demonstrate how to deploy a VM</label>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center align-items-center my-1">
                     <input type="text" class="form-control" id="name" name="name" style="max-width: 256px;">
-                  </div>            
+                </div>            
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
-                  <button type="submit" class="btn btn-primary btn-lg px-4 gap-3">Say Hello</button>
-                </div>    
-         </form>
+                  <a href="{{ url_for('appsmenu') }}" class="btn btn-primary btn-lg px-4 gap-3">Apps Menu</a>
+                </div>  
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                    <a href="{{ url_for('index') }}" class="btn btn-purple btn-lg px-4 gap-3" style="background-color: #6f42c1; color: #fff; border: none;">Back home</a>
+                </div>
+             </div>
 
-  
      </main>      
    </body>
 </html>
