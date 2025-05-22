@@ -37,7 +37,8 @@ jobs:
                 parameters: |
                   appServiceName=my-flask-app-service
                   environmentName=dev
-                  location=eastus
+                  location=canadacentral
+                  appServicePlanName=my-flask-app-app-serv-plan1
 
             - name: Archive code
               run: zip -r release.zip . -x '*.git*'
@@ -45,6 +46,6 @@ jobs:
             - name: Deploy to Azure Web App
               uses: azure/webapps-deploy@v3
               with:
-                app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+                app-name: my-flask-app-service
                 publish-profile: ${{ secrets.AZURE_CREDENTIALS}}
                 package: release.zip
