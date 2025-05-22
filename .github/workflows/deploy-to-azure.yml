@@ -35,7 +35,7 @@ jobs:
                 resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
                 template: ./infra/main.bicep
                 parameters: |
-                  appServiceName=${{ secrets.AZURE_WEBAPP_NAME }}
+                  appServiceName=my-flask-app-service
                   environmentName=dev
                   location=eastus
 

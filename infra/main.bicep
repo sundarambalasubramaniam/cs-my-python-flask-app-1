@@ -7,18 +7,18 @@ targetScope = 'resourceGroup'
 @minLength(1)
 @maxLength(64)
 @description('Name of the the environment which is used to generate a short unique hash used in all resources.')
-param environmentName string
+param environmentName string = 'dev'
 
 @minLength(1)
 @description('Primary location for all resources')
-param location string
+param location string = 'eastus'
 
 // Optional parameters to override the default azd resource naming conventions.
 // Add the following to main.parameters.json to provide values:
 // "resourceGroupName": {
 //      "value": "myGroupName"
 // }
-param appServiceName string = ''
+param appServiceName string = 'my-flask-app-service'
 param appServicePlanName string = ''
 
 var abbrs = loadJsonContent('./abbreviations.json')
