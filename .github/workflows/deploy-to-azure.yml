@@ -1,65 +1,49 @@
 name: Deploy Python Flask App to Azure Web App
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
 
-            - name: Set up Python
-              uses: actions/setup-python@v5
-              with:
-                python-version: '3.13'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-            - name: Install dependencies
-              run: |
-                python -m pip install --upgrade pip
-                if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-            - name: Azure Login
-              uses: azure/login@v1
-              with:
-                creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy infrastructure with Bicep
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          template: ./infra/main.bicep
+          parameters: |
+            appServiceName=${{ secrets.AZURE_WEBAPP_NAME }}
+            appServicePlanName=${{ secrets.AZURE_WEBAPP_PLAN_NAME }}
+            location=${{ secrets.AZURE_LOCATION }}
+          deploymentName: flask-app-deployment
 
-            - name: Deploy infrastructure with Bicep
-              uses: azure/arm-deploy@v1
-              with:
-                subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-                resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
-                template: ./infra/main.bicep
-                parameters: |
-                  appServiceName=my-flask-app-service
-                  environmentName=dev
-                  location=canadacentral
-                  appServicePlanName=my-flask-app-app-serv-plan1
-                  appServicePlanSkuName=F1
-                  resourcegroupLocation=canadacentral
-                deploymentName: my-flask-app-deployment
-            - name: Build and package the application
-              run: |
-                mkdir -p release
-                cp -r . release/
-                cd release
-                # Remove unnecessary files
-                rm -rf .git
-                rm -rf __pycache__
-                rm -rf *.pyc
+      - name: Archive code
+        run: zip -r release.zip . -x '*.git*' 'release.zip' '__pycache__/*'
 
-
-
-            - name: Archive code
-              run: zip -r release.zip . -x '*.git*'
-
-            - name: Deploy to Azure Web App
-              uses: azure/webapps-deploy@v3
-              with:
-                app-name: my-flask-app-service
-                publish-profile: ${{ secrets.AZURE_CREDENTIALS}}
-                package: release.zip
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          package: release.zip
