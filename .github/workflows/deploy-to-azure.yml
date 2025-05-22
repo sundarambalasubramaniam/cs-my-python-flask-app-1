@@ -34,7 +34,6 @@ jobs:
                 subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                 resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
                 template: ./infra/main.bicep
-                parametersFile: ./infra/main.parameters.json
                 parameters: |
                   appServiceName=${{ secrets.AZURE_WEBAPP_NAME }}
                   environmentName=dev
