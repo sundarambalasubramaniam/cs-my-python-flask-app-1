@@ -37,3 +37,21 @@ resource webApp 'Microsoft.Web/sites@2022-03-01' = {
 
 output webAppName string = webApp.name
 output webAppUrl string = 'https://${webApp.properties.defaultHostName}'
+
+resource group 'Microsoft.Resources/resourceGroups@2021-04-01' existing = {
+  name: 'myResourceGroup'
+}
+
+module appService './appService.bicep' = {
+  name: 'myAppService'
+  scope: group
+  params: {
+    appServiceName: 'myUniqueAppName'
+    appServicePlanName: 'myAppServicePlan'
+    location: 'East US'
+    abbreviations: {
+      key1: 'value1'
+      key2: 'value2'
+    }
+  }
+}
