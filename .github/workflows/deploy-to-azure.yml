@@ -36,6 +36,8 @@ jobs:
                 template: ./infra/main.bicep
                 parameters: |
                   appServiceName=${{ secrets.AZURE_WEBAPP_NAME }}
+                  environmentName=${{ secrets.AZURE_ENV_NAME }}
+                  location=${{ secrets.AZURE_LOCATION }}
 
             - name: Archive code
               run: zip -r release.zip . -x '*.git*'
