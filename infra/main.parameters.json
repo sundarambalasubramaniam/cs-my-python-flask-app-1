@@ -3,10 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "environmentName": {
-      "value": "dev"
+      "value": "prod"
     },
     "location": {
-      "value": "eaustraliaeast"
+      "value": "australiaeast"
     },
     "appServiceName": {
       "value": "my-flask-app-service"
