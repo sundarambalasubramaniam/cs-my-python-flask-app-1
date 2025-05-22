@@ -6,7 +6,7 @@
       "value": "dev"
     },
     "location": {
-      "value": "eastus"
+      "value": "eastus2"
     },
     "appServiceName": {
       "value": "my-flask-app-service"
