@@ -18,7 +18,6 @@ param location string
 // "resourceGroupName": {
 //      "value": "myGroupName"
 // }
-param resourceGroupName string = ''
 param appServiceName string = ''
 param appServicePlanName string = ''
 

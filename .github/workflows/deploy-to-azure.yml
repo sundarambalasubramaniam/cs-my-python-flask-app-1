@@ -35,7 +35,7 @@ jobs:
                 resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
                 template: ./infra/main.bicep
                 parameters: |
-                  appName=${{ secrets.AZURE_WEBAPP_NAME }}
+                  appServiceName=${{ secrets.AZURE_WEBAPP_NAME }}
 
             - name: Archive code
               run: zip -r release.zip . -x '*.git*'
